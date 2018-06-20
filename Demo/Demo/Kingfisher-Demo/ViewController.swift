@@ -65,18 +65,31 @@ extension ViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
-        let url = URL(string: "https://raw.githubusercontent.com/onevcat/Kingfisher/master/images/kingfisher-\(indexPath.row + 1).jpg")!
-
-        _ = (cell as! CollectionViewCell).cellImageView.kf.setImage(with: url,
-                                           placeholder: nil,
-                                           options: [.transition(ImageTransition.fade(1))],
-                                           progressBlock: { receivedSize, totalSize in
-                                            print("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+        //gif testing
+        if indexPath.row == 0 {
+            let url = Bundle.main.url(forResource: "loader", withExtension: "gif")!
+            _ = (cell as! CollectionViewCell).cellImageView.kf.setImage(with: url,
+                                                                        placeholder: nil,
+                                                                        options: [.transition(ImageTransition.fade(1))],
+                                                                        progressBlock: { receivedSize, totalSize in
+                                                                            print("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
             },
-                                           completionHandler: { image, error, cacheType, imageURL in
-                                            print("\(indexPath.row + 1): Finished")
-        })
+                                                                        completionHandler: { image, error, cacheType, imageURL in
+                                                                            print("\(indexPath.row + 1): Finished")
+            })
+        } else {
+            let url = URL(string: "https://raw.githubusercontent.com/onevcat/Kingfisher/master/images/kingfisher-\(indexPath.row + 1).jpg")!
+            
+            _ = (cell as! CollectionViewCell).cellImageView.kf.setImage(with: url,
+                                                                        placeholder: nil,
+                                                                        options: [.transition(ImageTransition.fade(1))],
+                                                                        progressBlock: { receivedSize, totalSize in
+                                                                            print("\(indexPath.row + 1): \(receivedSize)/\(totalSize)")
+            },
+                                                                        completionHandler: { image, error, cacheType, imageURL in
+                                                                            print("\(indexPath.row + 1): Finished")
+            })
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
